@@ -29,6 +29,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{{url_for('static',filename='assets/css/style.css')}}" rel="stylesheet">
+  <link href="{{url_for('static',filename='assets/css/content-styles.css')}}" rel="stylesheet">
 
 
   <!-- =======================================================
@@ -77,7 +78,9 @@
     </div>
   </header><!-- End Header -->
 
-  <main id="main" style="min-height: 800px;">
+
+
+  <main id="main">
     <div style="background-color: #20212b; width: 100%; height: 70px;"></div>
 
     <!-- ======= Blog Section ======= -->
@@ -104,25 +107,27 @@
 
           <div class="col-lg-8 entries">
 
-            {% for post in posts %}
-              <article>
-                <div class="card mb-4">
-                  <!--svg class="bd-placeholder-img card-img-top" width="700px" height="300px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg-->
-                  <!--img class="card-img-top" src="/storage/thumbnails/LiCa8Q1jiUkHg5x82x3rkbGpxfROfs6CyCN3wsqc.jpeg" width="700px" height="300px" alt="Card image cap"-->
-                  <div class="card-body">
-                    <h3 class="card-title">{{post.title}}</h3>
-                    <p class="card-text">{{post.desc}}</p>
-                    <div class="blog-button">
-                      <a href="post/{{post._id}}" class="btn btn-primary btn-user">Seguir Leyendo →</a>
-                    </div>
-                  </div>
-                  <div class="card-footer text-muted">
-                    Publicado el {{post.creation_date}} por
-                    <span class="text-primary">{{post.author}}</span>
-                  </div>
-                </div>
-              </article><!-- End blog entry -->
-            {% endfor %}
+            <!-- Title -->
+            <h1 class="mt-4">{{post.title}}</h1>
+
+            <!-- Author -->
+            <p class="lead">
+              por
+              <span> {{post.author}}</span>
+            </p>
+
+            <hr>
+
+            <!-- Date/Time -->
+            <p>Publicado el {{post.creation_date}}</p>
+
+            <hr>
+
+            <div class="ck-content">
+              {% autoescape false %}
+                {{post.content}}
+              {% endautoescape %}
+            </div>
 
           </div><!-- End blog entries list -->
 
@@ -203,15 +208,29 @@
   <!-- Template Main JS File -->
   <script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
 
-  <!-- Notifications -->
-  <!-- ======= Notifications Section ======= -->
-  <div id="notifications" style="position: fixed; top: 75px; right: 10px;">
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
 
-  </div>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-messaging.js"></script>
-  <script src="{{url_for('static',filename='assets/js/notifications.js')}}"></script>
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyD3GChDdJ-GWTQsU1-rOYQbQcTIBbIAv78",
+      authDomain: "covidmx-b6a28.firebaseapp.com",
+      projectId: "covidmx-b6a28",
+      storageBucket: "covidmx-b6a28.appspot.com",
+      messagingSenderId: "547859078864",
+      appId: "1:547859078864:web:96dc4763c20500f18648d5",
+      measurementId: "G-YYCL4DP2BB"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 
 </body>
 

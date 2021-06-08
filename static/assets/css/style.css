@@ -26,6 +26,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Raleway", sans-serif;
 }
 
+.blog-button {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.ck-editor__editable_inline {
+  min-height: 400px;
+}
+
+
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/

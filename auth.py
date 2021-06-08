@@ -1,7 +1,12 @@
-from flask import Blueprint, request, render_template, redirect, url_for
+from bson.objectid import ObjectId
+from flask import Blueprint, request, render_template, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, login_user, logout_user
 from pymongo import message
+from datetime import date
+
+from werkzeug.utils import escape
+from models import User
 from __init__ import db
 
 auth = Blueprint('auth', __name__)
@@ -11,16 +16,17 @@ def login():
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
-        remember = request.form.get('remember')
+        remember = 'check' in request.form
 
         user = db.userAuth.find_one({'email':email})
         if not user or not check_password_hash(user['password'], password):
-            return render_template("pages/login.html",page_title='Ingresa | COVIDMX',message="El correo o la contraseña son incorrectos.")
+            flash("El correo o la contraseña son incorrectos")
+            return redirect(url_for("auth.login", page_title='Ingresa | COVIDMX'))
         else:
-            #login_user(user,remember=remember)
+            login_user(User(user),remember=remember)
             return redirect(url_for('auth.home'))
     else:
-        return render_template("pages/login.html",page_title='Ingresa | COVIDMX')
+        return render_template("pages/login.html", page_title='Ingresa | COVIDMX')
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -36,17 +42,52 @@ def register():
         existsE = db.userAuth.find({'email':email}).count()
 
         if existsN > 0:
-            return render_template("pages/register.html",page_title='Registrate | COVIDMX',message="El nombre de usuario ya existe, elige otro.")
+            flash("El nombre de usuario ya existe, elige otro")
+            return redirect(url_for("auth.register", page_title='Registrate | COVIDMX'))
         if existsE > 0:
-            return render_template("pages/register.html",page_title='Registrate | COVIDMX',message="El correo ya fue registrado en nuestra base de datos.")
+            flash("El correo ya fue registrado en nuestra base de datos")
+            return redirect(url_for("auth.register", page_title='Registrate | COVIDMX'))
         
         user = {"user_nickname":nickname,"user_firstname": name, "user_lastname": lastname, "email": email, "password": generate_password_hash(password)}
         db.userAuth.insert_one(user)
 
-        return redirect(url_for('auth.login'))
+        return redirect(url_for('auth.login', page_title='Ingresa | COVIDMX'))
     else:
-        return render_template("pages/register.html",page_title='Registrate | COVIDMX')
+        return render_template("pages/register.html", page_title='Registrate | COVIDMX')
 
 @auth.route('/home')
+@login_required
 def home():
-    return render_template("pages/home.html",page_title='COVIDMX')
+    posts = db.posts.find()
+    print(posts)
+    return render_template("pages/home.html", page_title='COVIDMX', user=current_user, posts=posts)
+
+@auth.route('/new-post', methods=['GET', 'POST'])
+@login_required
+def npost():
+    if request.method == 'POST':
+
+        title = request.form.get('title')
+        desc = request.form.get('desc')
+        content = request.form.get('content')
+        author = current_user.user_json.get("user_nickname")
+        creation_date = date.today()
+        
+        post = {"title":title,"desc": desc, "content": content, "author":author, "creation_date":str(creation_date), "views":0}
+        db.posts.insert_one(post)
+
+        return redirect(url_for('auth.home'))
+    else:
+        return render_template("pages/npost.html", page_title='Nuevo Post | COVIDMX',  user=current_user)
+
+@auth.route('/post/<postId>')
+@login_required
+def view_post(postId):
+    post = db.posts.find_one({'_id':ObjectId(escape(postId))})
+    return render_template("pages/post.html", page_title='COVIDMX', post=post, user=current_user)
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.Index'))

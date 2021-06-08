@@ -73,10 +73,12 @@
                                     </form>
                                     <!-- Server Error Response -->
                                     <div>
-                                        {% if message %}
+                                        {% with messages = get_flashed_messages() %}
+                                        {% if messages %}
                                             <hr>
-                                            <p class="text-danger mt-2">{{message}}</p>
+                                            <p class="text-danger mt-2">{{ messages[0] }}.</p>
                                         {% endif %}
+                                        {% endwith %}
                                     </div>
                                     <hr>
                                     <!--div class="text-center">
