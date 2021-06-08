@@ -7,7 +7,7 @@ from datetime import date
 
 from werkzeug.utils import escape
 from models import User
-from __init__ import db
+from app import db
 
 auth = Blueprint('auth', __name__)
 

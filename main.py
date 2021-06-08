@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template
 from werkzeug.utils import escape
-from __init__ import db
-from __init__ import pymongo
+from app import db
+from app import pymongo
 
 main = Blueprint('main', __name__)
 
