@@ -6,13 +6,16 @@ import os
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-client = MongoClient(os.environ['DB_URL'])
+print(os.environ.get("DB_URL"))
+print(os.environ.get("SECRET_KEY"))
+
+client = MongoClient(os.environ.get("DB_URL"))
 db = client.covidmx
 
 def create_app():
     app = Flask(__name__, static_url_path='')
 
-    app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
