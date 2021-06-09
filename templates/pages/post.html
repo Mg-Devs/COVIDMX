@@ -208,29 +208,15 @@
   <!-- Template Main JS File -->
   <script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
 
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <!-- Notifications -->
+  <!-- ======= Notifications Section ======= -->
+  <div id="notifications" style="position: fixed; top: 75px; right: 10px;">
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+  </div>
 
-  <script>
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    var firebaseConfig = {
-      apiKey: "AIzaSyD3GChDdJ-GWTQsU1-rOYQbQcTIBbIAv78",
-      authDomain: "covidmx-b6a28.firebaseapp.com",
-      projectId: "covidmx-b6a28",
-      storageBucket: "covidmx-b6a28.appspot.com",
-      messagingSenderId: "547859078864",
-      appId: "1:547859078864:web:96dc4763c20500f18648d5",
-      measurementId: "G-YYCL4DP2BB"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-  </script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-messaging.js"></script>
+  <script src="{{url_for('static',filename='assets/js/notifications.js')}}"></script>
 
 </body>
 

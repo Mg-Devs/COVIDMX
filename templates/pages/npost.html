@@ -174,56 +174,15 @@
           } );
   </script>
 
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <!-- Notifications -->
+  <!-- ======= Notifications Section ======= -->
+  <div id="notifications" style="position: fixed; top: 75px; right: 10px;">
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-analytics.js"></script>
+  </div>
 
-  <script>
-    // Give the service worker access to Firebase Messaging.
-    // Note that you can only use Firebase Messaging here. Other Firebase libraries
-    // are not available in the service worker.
-    importScripts('https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js');
-    importScripts('https://www.gstatic.com/firebasejs/8.5.0/firebase-messaging.js');
-
-    // Initialize the Firebase app in the service worker by passing in
-    // your app's Firebase config object.
-    // https://firebase.google.com/docs/web/setup#config-object
-    firebase.initializeApp({
-      apiKey: "AIzaSyD3GChDdJ-GWTQsU1-rOYQbQcTIBbIAv78",
-      authDomain: "covidmx-b6a28.firebaseapp.com",
-      projectId: "covidmx-b6a28",
-      storageBucket: "covidmx-b6a28.appspot.com",
-      messagingSenderId: "547859078864",
-      appId: "1:547859078864:web:96dc4763c20500f18648d5",
-      measurementId: "G-YYCL4DP2BB"
-    });
-
-    // Retrieve an instance of Firebase Messaging so that it can handle background
-    // messages.
-    const messaging = firebase.messaging();
-
-    messaging.getToken({ vapidKey: 'BJrdlBBlLojGJ0ahB4maDDroD1dzuR6B9fZwXPizyJeIgEJQ90c4K3yYC4ZGNrOFO7iOY4Yuafeaff6XRoooQJU' }).then((currentToken) => {
-      if (currentToken) {
-        // Send the token to your server and update the UI if necessary
-        // ...
-      } else {
-        // Show permission request UI
-        console.log('No registration token available. Request permission to generate one.');
-        // ...
-      }
-    }).catch((err) => {
-      console.log('An error occurred while retrieving token. ', err);
-      // ...
-    });
-
-    messaging.onMessage((payload) => {
-      console.log('Message received. ', payload);
-      // ...
-    });
-  </script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-messaging.js"></script>
+  <script src="{{url_for('static',filename='assets/js/notifications.js')}}"></script>
 
 </body>
 
