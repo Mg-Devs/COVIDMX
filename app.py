@@ -6,16 +6,13 @@ import os
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-print(os.environ.get("DB_URL"))
-print(os.environ.get("SECRET_KEY"))
-
-client = MongoClient(os.environ.get("DB_URL"))
+client = MongoClient("mongodb://dbCovidio:xYAVPiVkESzNwbf8@covidio-shard-00-00.8yq61.mongodb.net:27017,covidio-shard-00-01.8yq61.mongodb.net:27017,covidio-shard-00-02.8yq61.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-95pyir-shard-0&authSource=admin&retryWrites=true&w=majority")
 db = client.covidmx
 
 def create_app():
     app = Flask(__name__, static_url_path='')
 
-    app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
+    app.config['SECRET_KEY'] = '\xdd\xe0B\xf7\x16\x96 C\\\xbf\xd7\xfe\xb8ZX\x8bz\xe9<\xccS\xb0z\xd8'
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
