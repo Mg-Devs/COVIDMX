@@ -9,7 +9,7 @@ from bson.objectid import ObjectId
 config = dotenv_values(".env")
 client = MongoClient(config.get("DB_URL"))
 db = client.covidmx
-
+app = None
 
 def create_app():
     app = Flask(__name__, static_url_path='')
