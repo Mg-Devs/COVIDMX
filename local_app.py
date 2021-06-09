@@ -1,18 +1,19 @@
 from flask import Flask, render_template
 from flask import request
 from flask_login import LoginManager
+from dotenv import dotenv_values
 import pymongo
-import os
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-client = MongoClient(os.environ['DB_URL'])
+config = dotenv_values(".env")
+client = MongoClient(config.get("DB_URL"))
 db = client.covidmx
 
 def create_app():
     app = Flask(__name__, static_url_path='')
 
-    app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+    app.config['SECRET_KEY'] = config.get("SECRET_KEY")
 
     # blueprint for auth routes in our app
     from auth import auth as auth_blueprint
@@ -36,5 +37,3 @@ def create_app():
     return app
 
 app = create_app()
-
-
