@@ -1,3 +1,4 @@
+from re import search
 from bson.objectid import ObjectId
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -85,6 +86,23 @@ def npost():
 def view_post(postId):
     post = db.posts.find_one({'_id':ObjectId(escape(postId))})
     return render_template("pages/post.html", page_title='COVIDMX', post=post, user=current_user)
+
+
+@auth.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    if request.method == 'POST':
+
+        search = request.form.get('searchInput')
+        search = '\W*((?i)'+search+'(?-i))\W*'
+        print(search)
+        posts = db.posts.find({ '$or': [{'title':{'$regex':search}},{'desc':{'$regex':search}},{'content':{'$regex':search}}]})
+    else:
+        posts = db.posts.find()
+
+    
+    print(posts)
+    return render_template("pages/home.html", page_title='COVIDMX', user=current_user, posts=posts)
 
 @auth.route('/logout')
 @login_required

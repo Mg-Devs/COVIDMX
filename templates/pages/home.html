@@ -59,14 +59,14 @@
 
           <li class="drop-down"><a href="">{{user.user_json.get("user_nickname")}}</a>
             <ul>
-              <li><a href="#">Mis Publicaciones</a></li>
+              <!--li><a href="#">Mis Publicaciones</a></li>
               <li class="drop-down"><a href="#">Opciones</a>
                 <ul>
                   <li><a href="#">Mi perfil</a></li>
                   <li><a href="#">Configuracion</a></li>
                   <li><a href="#">Soporte</a></li>
                 </ul>
-              </li>
+              </li-->
               <li><a href="/logout">Salir</a></li>
             </ul>
           </li>
@@ -130,12 +130,14 @@
             <div class="card ">
               <h5 class="card-header">Buscar</h5>
               <div class="card-body">
-                <div class="input-group">
-                  <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
-                  <span class="input-group-btn">
-                    <button id="searchButton" class="btn btn-secondary" type="button">Ir</button>
-                  </span>
-                </div>
+                <form action="search" method="post">
+                  <div class="input-group">
+                    <input id="searchInput" name="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                    <span class="input-group-btn">
+                      <button id="searchButton" class="btn btn-secondary" type="submit">Ir</button>
+                    </span>
+                  </div>
+                </form>
               </div>
             </div>
 

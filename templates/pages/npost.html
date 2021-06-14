@@ -62,14 +62,14 @@
 
           <li class="drop-down"><a href="">{{user.user_json.get("user_nickname")}}</a>
             <ul>
-              <li><a href="#">Mis Publicaciones</a></li>
+              <!--li><a href="#">Mis Publicaciones</a></li>
               <li class="drop-down"><a href="#">Opciones</a>
                 <ul>
                   <li><a href="#">Mi perfil</a></li>
                   <li><a href="#">Configuracion</a></li>
                   <li><a href="#">Soporte</a></li>
                 </ul>
-              </li>
+              </li-->
               <li><a href="logout">Salir</a></li>
             </ul>
           </li>
@@ -167,12 +167,42 @@
   <script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
 
   <script>
-      ClassicEditor
-          .create( document.querySelector( '#editor' ))
-          .catch( error => {
-              console.error( error );
-          } );
+    ClassicEditor.defaultConfig =  {
+				
+				toolbar: {
+					items: [
+						'heading',
+						'|',
+						'bold',
+						'italic',
+						'link',
+						'bulletedList',
+						'numberedList',
+						'|',
+						'outdent',
+						'indent',
+						'|',
+						'blockQuote',
+						'insertTable',
+						'undo',
+						'redo'
+					]
+				},
+				language: 'es',
+				licenseKey: '',
+				
+				
+				
+			};
+
+    ClassicEditor
+      .create( document.querySelector( '#editor' ))
+      .catch( error => {
+          console.error( error );
+      } );
   </script>
+
+  
 
   <!-- Notifications -->
   <!-- ======= Notifications Section ======= -->

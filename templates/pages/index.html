@@ -58,9 +58,28 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li><a href="/">Inicio</a></li>
-          <li><a href="blog">Blog</a></li>
-          <li class="active"><a href="register">Registrarse</a></li>
-          <li><a href="login">Ingresar</a></li>
+          <li><a href="home">Blog</a></li>
+
+          {% if user.user_json is defined %}   
+            <li class="active"><a href="/new-post">Crear Entrada</a></li>
+
+            <li class="drop-down"><a href="">{{user.user_json.get("user_nickname")}}</a>
+              <ul>
+                <!--li><a href="#">Mis Publicaciones</a></li>
+                <li class="drop-down"><a href="#">Opciones</a>
+                  <ul>
+                    <li><a href="#">Mi perfil</a></li>
+                    <li><a href="#">Configuracion</a></li>
+                    <li><a href="#">Soporte</a></li>
+                  </ul>
+                </li-->
+                <li><a href="/logout">Salir</a></li>
+              </ul>
+            </li>
+          {% else %}
+            <li class="active"><a href="register">Registrarse</a></li>
+            <li><a href="login">Ingresar</a></li>
+          {% endif %}
 
           <!--li class="drop-down"><a href="">Drop Down</a>
             <ul>
@@ -144,7 +163,6 @@
               así como diversos consejos para que los demás podamos cuidarnos y en caso de contagio o sospecha de contagio
               saber como actuar.
             </p>
-            <a href="#" class="btn-learn-more">Registrarme</a>
           </div>
         </div>
 

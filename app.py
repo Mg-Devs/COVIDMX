@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask import request
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 import pymongo
 import os
 from pymongo import MongoClient
